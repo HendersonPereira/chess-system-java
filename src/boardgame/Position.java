@@ -6,7 +6,6 @@ public class Position {
 	private int columm;
 	
 	public Position(int row, int columm) {
-		super();
 		this.row = row;
 		this.columm = columm;
 	}
