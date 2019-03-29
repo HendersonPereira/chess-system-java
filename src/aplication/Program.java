@@ -1,8 +1,9 @@
 package aplication;
 
-import java.util.Locale;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import chess.ChessExeption;
 import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
@@ -10,25 +11,32 @@ import chess.ChessPosition;
 public class Program {
 
 	public static void main(String[] args) {
-
-		Locale.setDefault(Locale.US);
 		Scanner sc = new Scanner(System.in);
-		ChessMatch cm = new ChessMatch();
-
+		ChessMatch chessMatch = new ChessMatch();
+		
 		while (true) {
-			UI.printBoard(cm.getPieces());
-			System.out.println();
-			System.out.print("Source: ");
-			ChessPosition source = UI.readChessPosition(sc);
-
-			System.out.println();
-			System.out.print("target: ");
-			ChessPosition target = UI.readChessPosition(sc);
-
-			ChessPiece capturedPiece = cm.performChessMove(source, target);
-
+			try {
+				UI.clearScreen();
+				UI.printBoard(chessMatch.getPieces());
+				System.out.println();
+				System.out.print("Source: ");
+				ChessPosition source = UI.readChessPosition(sc);
+				
+				System.out.println();
+				System.out.print("Target: ");
+				ChessPosition target = UI.readChessPosition(sc);
+				
+				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+			}
+			catch (ChessExeption e) {
+				System.out.println(e.getMessage());
+				sc.nextLine();
+			}
+			catch (InputMismatchException e) {
+				System.out.println(e.getMessage());
+				sc.nextLine();
+			}
 		}
-
 	}
 
 }
